@@ -98,7 +98,9 @@ decode_flowset(3, Domain, Data, Acc) ->
 decode_flowset(Id, Domain, Data, Acc) when Id > 255 ->
     case lookup_template(Domain, Id) of
         false ->
-            {error, missing_template};
+            % if template is missing, skip this and return current Acc
+            % {error, missing_template};
+            Acc;
         Template ->
 	    decode_set_data_fields(Data, Template, Acc)
     end.
